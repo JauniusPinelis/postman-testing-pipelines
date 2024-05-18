@@ -17,6 +17,23 @@ jobs:
       uses: actions/setup-node@v1
       with: 
         node-version: '16.x'
+
+    # Install project dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Start the Node.js application in the background
+      - name: Start Node.js Application
+        run: |
+          nohup npm start &
+      
+      # Wait for the application to be fully up and running
+      - name: Wait for Application to Start
+        run: |
+          while ! curl -s http://localhost:3000/api/users > /dev/null; do
+            echo "Waiting for application to start..."
+            sleep 2
+          done
     
     # Install the newman command line utility and also install the html extra reporter
     - name: Install newman
