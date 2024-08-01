@@ -8,7 +8,7 @@ let users = [];
 router.post('/', (req, res) => {
     const user = { id: uuidv4(), ...req.body };
     users.push(user);
-    res.status(201).send(user);
+    res.send(user);
 });
 
 // Get all users
